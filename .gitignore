@@ -1,0 +1,22 @@
+# Virtual Environments
+venv/
+venv_iot/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Models/Data
+*.pt
+yolov8n.pt
+*.mp4
+*.jpg
+*.png
+!logo.jpg
+!elephant-forest.jpg
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
