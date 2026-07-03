@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report wildlife sightings and access emergency SOS features">
+    <title>User Portal - Wildlife Guardian</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <img src="logo.jpg" alt="WildAI Logo"
+                    style="height: 48px; border-radius: 12px; border: 2px solid var(--color-secondary-light);">
+                <span data-lang="brand">WildAI</span>
+            </a>
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="index.html" data-lang="nav-home">Home</a></li>
+                <li><a href="user-portal.html" data-lang="nav-portal">User Portal</a></li>
+                <li><a href="#report" data-lang="btn-report">Report Sighting</a></li>
+                <li><a href="login.html" class="btn btn-primary" data-lang="nav-admin">Admin Login</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn" data-lang-switch="en" id="langEn">English</button>
+                    <button class="lang-btn" data-lang-switch="ml" id="langMl">മലയാളം</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Emergency SOS Banner -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <button class="btn btn-danger btn-lg" id="sosButton"
+            style="font-size: 1.5rem; padding: var(--space-lg) var(--space-xl); box-shadow: var(--shadow-xl);">
+            <span data-lang="activate-sos">EMERGENCY SOS</span>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero"
+        style="min-height: 50vh; padding-top: 100px; background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://th-i.thgim.com/public/incoming/o8ko7w/article70068731.ece/alternates/FREE_1200/6678_21_7_2025_16_22_4_3_TUSKER_1.JPG'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 style="font-size: 3rem;" data-lang="nav-portal">User Portal</h1>
+                <p data-lang="portal-desc1">Report wildlife sightings, access safety resources, and stay informed about
+                    wildlife activity in your
+                    area.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Alerts Section -->
+    <section class="section" id="alerts">
+        <div class="container">
+            <h2 class="mb-4" data-lang="alerts-title">Active Alerts in Your Area</h2>
+
+            <div id="alertsContainer" style="display: flex; flex-direction: column; gap: var(--space-md);">
+                <!-- Alerts will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Wildlife Sighting Report Form -->
+    <section class="section" id="report" style="background: var(--color-bg-light);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 class="text-center mb-4" data-lang="report-title">Report Wildlife Sighting</h2>
+                <p class="text-center mb-5" style="color: var(--color-text-secondary);" data-lang="report-subtitle">
+                    Help us track wildlife movement by reporting sightings. Your reports are verified using AI to ensure
+                    authenticity.
+                </p>
+
+                <div class="card">
+                    <form id="sightingForm">
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="location-label">Location</label>
+                            <input type="text" class="form-input" id="location"
+                                data-lang-placeholder="location-placeholder" placeholder="Enter location or use GPS"
+                                required>
+                            <button type="button" class="btn btn-outline mt-2" id="getLocationBtn">
+                                <span data-lang="use-gps">Use My Current Location</span>
+                            </button>
+                        </div>
+
+                        <!-- Date and Time -->
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                <label class="form-label" data-lang="date-label">Date</label>
+                                <input type="date" class="form-input" id="sightingDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-lang="time-label">Time</label>
+                                <input type="time" class="form-input" id="sightingTime" required>
+                            </div>
+                        </div>
+
+                        <!-- Species -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="species-label">Species (if known)</label>
+                            <select class="form-select" id="species">
+                                <option value="" data-lang="select-species">Select species...</option>
+                                <option value="tiger" data-lang="species-tiger">Tiger / കടുവ</option>
+                                <option value="leopard" data-lang="species-leopard">Leopard / പുലി</option>
+                                <option value="elephant" data-lang="species-elephant">Elephant / ആന</option>
+                                <option value="wild-boar" data-lang="species-boar">Wild Boar / കാട്ടുപന്നി</option>
+                                <option value="deer" data-lang="species-deer">Deer / മാൻ</option>
+                                <option value="bear" data-lang="species-bear">Bear / കരടി</option>
+                                <option value="monkey" data-lang="species-monkey">Monkey / കുരങ്ങ്</option>
+                                <option value="snake" data-lang="species-snake">Snake / പാമ്പ്</option>
+                                <option value="other" data-lang="species-other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Number of Animals -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="animal-count-label">Number of Animals</label>
+                            <input type="number" class="form-input" id="animalCount" min="1" value="1" required>
+                        </div>
+
+                        <!-- Behavior -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="behavior-label">Observed Behavior</label>
+                            <textarea class="form-textarea" id="behavior" data-lang-placeholder="behavior-placeholder"
+                                placeholder="Describe what the animal(s) were doing..." required></textarea>
+                        </div>
+
+                        <label class="form-label" data-lang="upload-photo-label">Upload Photo (Required for
+                            verification)</label>
+                        <div class="file-upload">
+                            <input type="file" class="file-upload-input" id="imageUpload" accept="image/*" required>
+                            <label for="imageUpload" class="file-upload-label">
+                                <span
+                                    style="font-size: 1.5rem; color: var(--color-primary); margin-bottom: 0.5rem;">Upload
+                                    File</span>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;" data-lang="upload-click">
+                                        Click to upload image
+                                    </div>
+                                    <div style="font-size: 0.875rem; color: var(--color-text-secondary);"
+                                        data-lang="upload-format">PNG, JPG
+                                        up to 10MB</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div id="imagePreview" class="file-preview hidden"></div>
+                        <div id="verificationStatus" class="mt-2"></div>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="form-group">
+                    <label class="form-label" data-lang="notes-label">Additional Notes</label>
+                    <textarea class="form-textarea" id="notes" data-lang-placeholder="notes-placeholder"
+                        placeholder="Provide any additional details about the sighting..."></textarea>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-group">
+                    <label class="form-label" data-lang="contact-label">Your Contact Number
+                        (Optional)</label>
+                    <input type="tel" class="form-input" id="contact" placeholder="For verification purposes only">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-full btn-lg">
+                    <span data-lang="submit-report">Submit Sighting Report</span>
+                </button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Safety Guidelines Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-5" data-lang="safety-guidelines-title">Safety Guidelines</h2>
+
+            <div class="grid grid-2">
+                <div class="card card-accent-side">
+                    <h3 data-lang="guideline-dangerous-wildlife-title">If You Encounter Dangerous Wildlife</h3>
+                    <ul style="color: var(--color-text-secondary); margin-left: var(--space-md); line-height: 1.8;">
+                        <li data-lang="guideline-dangerous-wildlife-1"><strong>Stay calm</strong> and do not run</li>
+                        <li data-lang="guideline-dangerous-wildlife-2"><strong>Back away slowly</strong> while facing
+                            the animal</li>
+                        <li data-lang="guideline-dangerous-wildlife-3"><strong>Make yourself appear larger</strong> by
+                            raising your arms</li>
+                        <li data-lang="guideline-dangerous-wildlife-4"><strong>Do not make direct eye contact</strong>
+                            with predators</li>
+                        <li data-lang="guideline-dangerous-wildlife-5"><strong>Use the SOS button</strong> immediately
+                            for emergency help</li>
+                        <li data-lang="guideline-dangerous-wildlife-6"><strong>Make noise</strong> to alert others in
+                            the area</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-side">
+                    <h3 data-lang="guideline-sos-system-title">Using the SOS System</h3>
+                    <ul style="color: var(--color-text-secondary); margin-left: var(--space-md); line-height: 1.8;">
+                        <li data-lang="guideline-sos-system-1"><strong>Press the SOS button</strong> in bottom-right
+                            corner</li>
+                        <li data-lang="guideline-sos-system-2"><strong>Your location</strong> is automatically shared
+                        </li>
+                        <li data-lang="guideline-sos-system-3"><strong>Forest authorities</strong> are notified
+                            immediately</li>
+                        <li data-lang="guideline-sos-system-4"><strong>Follow escape route</strong> guidance on screen
+                        </li>
+                        <li data-lang="guideline-sos-system-5"><strong>Stay on the line</strong> if contacted by
+                            authorities</li>
+                        <li data-lang="guideline-sos-system-6"><strong>Move to nearest safe zone</strong> as indicated
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-side">
+                    <h3 data-lang="guideline-agricultural-protection-title">Agricultural Protection Tips</h3>
+                    <ul style="color: var(--color-text-secondary); margin-left: var(--space-md); line-height: 1.8;">
+                        <li data-lang="guideline-agricultural-protection-1"><strong>Install proper fencing</strong>
+                            around crop areas</li>
+                        <li data-lang="guideline-agricultural-protection-2"><strong>Use motion-activated lights</strong>
+                            as deterrents</li>
+                        <li data-lang="guideline-agricultural-protection-3"><strong>Harvest crops promptly</strong> to
+                            reduce attraction</li>
+                        <li data-lang="guideline-agricultural-protection-4"><strong>Store produce securely</strong> away
+                            from forest edges</li>
+                        <li data-lang="guideline-agricultural-protection-5"><strong>Report crop damage</strong> to
+                            authorities</li>
+                        <li data-lang="guideline-agricultural-protection-6"><strong>Coordinate with neighbors</strong>
+                            for community watch</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-side">
+                    <h3 data-lang="guideline-community-safety-title">Community Safety Measures</h3>
+                    <ul style="color: var(--color-text-secondary); margin-left: var(--space-md); line-height: 1.8;">
+                        <li data-lang="guideline-community-safety-1"><strong>Travel in groups</strong> during high-risk
+                            times</li>
+                        <li data-lang="guideline-community-safety-2"><strong>Avoid forest areas</strong> at dawn and
+                            dusk</li>
+                        <li data-lang="guideline-community-safety-3"><strong>Keep children supervised</strong> near
+                            forest borders</li>
+                        <li data-lang="guideline-community-safety-4"><strong>Secure livestock</strong> in protected
+                            enclosures</li>
+                        <li data-lang="guideline-community-safety-5"><strong>Share sightings</strong> with community
+                            members</li>
+                        <li data-lang="guideline-community-safety-6"><strong>Participate in awareness programs</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Community Reports -->
+    <section class="section" style="background: var(--color-bg-light);">
+        <div class="container">
+            <h2 class="text-center mb-5" data-lang="recent-reports-title">Recent Community Reports</h2>
+
+            <div class="grid grid-3" id="recentReports">
+                <!-- Reports will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SOS Modal -->
+    <div id="sosModal" class="hidden"
+        style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: var(--space-md);">
+        <div class="card" style="max-width: 600px; width: 100%; background: white;">
+            <div style="text-align: center;">
+                <div style="font-size: 5rem; margin-bottom: var(--space-md); animation: pulse 1s infinite;">🆘</div>
+                <h2 style="color: var(--color-danger-high); margin-bottom: var(--space-md);"
+                    data-lang="sos-activated-title">EMERGENCY SOS ACTIVATED
+                </h2>
+
+                <div class="alert alert-danger-high" style="text-align: left;">
+                    <span class="alert-icon">📍</span>
+                    <div>
+                        <strong data-lang="sos-location-shared">Your location has been shared</strong><br>
+                        <span id="sosLocation">Acquiring GPS coordinates...</span>
+                    </div>
+                </div>
+
+                <div class="alert alert-safe" style="text-align: left;">
+                    <span class="alert-icon">✅</span>
+                    <div>
+                        <strong data-lang="sos-authorities-notified">Forest authorities notified</strong><br>
+                        <span data-lang="sos-help-on-way">Help is on the way. Stay calm and follow safety
+                            guidelines.</span>
+                    </div>
+                </div>
+
+                <div
+                    style="margin: var(--space-lg) 0; padding: var(--space-md); background: var(--color-bg-light); border-radius: var(--radius-md);">
+                    <h4 style="margin-bottom: var(--space-sm);" data-lang="sos-safe-zone-title">🗺️ Nearest Safe Zone
+                    </h4>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-sm);">
+                        <strong data-lang="sos-direction">Direction:</strong> <span
+                            id="safeZoneDirection">Northeast</span><br>
+                        <strong data-lang="sos-distance">Distance:</strong> <span id="safeZoneDistance">450
+                            meters</span>
+                    </p>
+                    <div style="font-size: 3rem; margin-top: var(--space-md);">⬆️</div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.875rem; margin-top: var(--space-sm);"
+                        data-lang="sos-follow-direction">
+                        Follow this direction to reach safety
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: var(--space-md); margin-top: var(--space-lg);">
+                    <button class="btn btn-primary w-full" onclick="window.location.href='tel:100'">
+                        <span data-lang="sos-call-emergency">📞 Call Emergency (100)</span>
+                    </button>
+                    <button class="btn btn-outline w-full" id="closeSosModal">
+                        <span data-lang="sos-close">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--color-surface-dark); color: rgba(255, 255, 255, 0.8); padding: var(--space-xl) 0; text-align: center;">
+        <div class="container">
+            <div class="navbar-brand"
+                style="justify-content: center; margin-bottom: var(--space-md); color: var(--color-secondary-light);">
+                <img src="logo.jpg" alt="WildAI Logo" style="height: 40px; border-radius: 8px; margin-right: 12px;">
+                <span data-lang="brand">WildAI</span>
+            </div>
+            <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: var(--space-sm);">
+                <span data-lang="emergency-hotline">Emergency Hotline:</span> <strong>1800-XXX-XXXX</strong> (24/7)
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.875rem;">
+                © 2026 WildAI. <span data-lang="footer-tagline">Protecting lives, preserving wildlife.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
