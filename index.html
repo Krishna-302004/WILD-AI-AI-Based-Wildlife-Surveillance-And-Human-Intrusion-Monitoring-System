@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="AI-driven smart fencing and wildlife monitoring system for human-wildlife conflict prevention">
+  <title>Wildlife Guardian - AI-Powered Wildlife Monitoring System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <img src="logo.jpg" alt="WildAI Logo"
+          style="height: 48px; border-radius: 12px; border: 2px solid var(--color-secondary-light);">
+        <span data-lang="brand">WildAI</span>
+      </a>
+      <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+      <ul class="navbar-menu" id="navMenu">
+        <li><a href="index.html" data-lang="nav-home">Home</a></li>
+        <li><a href="#features" data-lang="nav-features">Features</a></li>
+        <li><a href="#about" data-lang="nav-about">About</a></li>
+        <li><a href="user-portal.html" data-lang="nav-portal">User Portal</a></li>
+        <li><a href="login.html" class="btn btn-primary" data-lang="nav-admin">Admin Login</a></li>
+        <li class="lang-switcher">
+          <button class="lang-btn" data-lang-switch="en" id="langEn">English</button>
+          <button class="lang-btn" data-lang-switch="ml" id="langMl">മലയാളം</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero"
+    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://th-i.thgim.com/public/incoming/o8ko7w/article70068731.ece/alternates/FREE_1200/6678_21_7_2025_16_22_4_3_TUSKER_1.JPG'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <h1 data-lang="hero-title">Protecting Lives, Preserving Wildlife</h1>
+        <p data-lang="hero-desc">AI-driven smart fencing and real-time monitoring to minimize human-wildlife conflict
+          through intelligent detection, species identification, and predictive analytics.</p>
+        <div class="flex flex-center" style="gap: var(--space-md); flex-wrap: wrap;">
+          <a href="emergency-sos.html" class="btn btn-secondary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="margin-right: var(--space-xs);">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span data-lang="btn-report">Report Sighting</span>
+          </a>
+          <a href="login.html" class="btn btn-outline btn-lg" style="color: white; border-color: white;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="margin-right: var(--space-xs);">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <span data-lang="btn-admin">Admin Access</span>
+          </a>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">2,847</span>
+            <span class="stat-label" data-lang="stat-detections">Wildlife Detections</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">156</span>
+            <span class="stat-label" data-lang="stat-prevented">Conflicts Prevented</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">98.5%</span>
+            <span class="stat-label" data-lang="stat-accuracy">Detection Accuracy</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label" data-lang="stat-monitoring">Active Monitoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="text-center mb-5" data-lang="features-title">Intelligent Protection System</h2>
+
+      <div class="grid grid-3">
+        <!-- Feature 1: Real-time Detection -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f1-title">Real-Time Detection</h3>
+          <p data-lang="f1-desc">Advanced AI algorithms continuously monitor boundary zones, detecting wildlife movement
+            and unauthorized
+            human intrusion with 98.5% accuracy.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f1-item1">24/7 automated surveillance</li>
+            <li data-lang="f1-item2">Multi-sensor integration</li>
+            <li data-lang="f1-item3">Instant alert generation</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2: Species Identification -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f2-title">Species Classification</h3>
+          <p data-lang="f2-desc">Behavioral pattern analysis evaluates movement speed, gestures, and acoustic signals to
+            accurately identify
+            species and assess danger levels.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f2-item1">Movement pattern recognition</li>
+            <li data-lang="f2-item2">Acoustic signal analysis</li>
+            <li data-lang="f2-item3">Risk-based classification</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3: Smart Alerts -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f3-title">Species-Specific Alerts</h3>
+          <p data-lang="f3-desc">Customized warning systems activate different alarm sounds and intensities based on
+            animal danger level -
+            from high-risk tigers to lower-risk wild boars.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f3-item1">Graduated response system</li>
+            <li data-lang="f3-item2">Multi-level alarm intensity</li>
+            <li data-lang="f3-item3">Targeted notifications</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4: Anti-Poaching -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f4-title">Anti-Poaching Detection</h3>
+          <p data-lang="f4-desc">Identifies illegal human entry and potential poaching activities, immediately notifying
+            forest authorities
+            with location data and visual evidence.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f4-item1">Unauthorized entry detection</li>
+            <li data-lang="f4-item2">Automatic authority alerts</li>
+            <li data-lang="f4-item3">Evidence documentation</li>
+          </ul>
+        </div>
+
+        <!-- Feature 5: Community Reporting -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f5-title">Verified Community Reports</h3>
+          <p data-lang="f5-desc">Mobile app enables villagers to report wildlife sightings with AI-powered image
+            authenticity verification
+            to prevent false or manipulated reports.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f5-item1">Easy image upload</li>
+            <li data-lang="f5-item2">AI tamper detection</li>
+            <li data-lang="f5-item3">Community engagement</li>
+          </ul>
+        </div>
+
+        <!-- Feature 6: SOS System -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f6-title">Emergency SOS System</h3>
+          <p data-lang="f6-desc">Instant emergency alerts with dynamic escape route guidance based on real-time wildlife
+            locations and safe
+            zone mapping.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f6-item1">One-touch emergency alert</li>
+            <li data-lang="f6-item2">GPS-based routing</li>
+            <li data-lang="f6-item3">Real-time safe zones</li>
+          </ul>
+        </div>
+
+        <!-- Feature 7: Predictive Analytics -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f7-title">Predictive Analytics</h3>
+          <p data-lang="f7-desc">Seasonal and environmental analysis based on crop cycles, water scarcity, and
+            historical data to predict
+            animal movement trends.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f7-item1">Seasonal pattern analysis</li>
+            <li data-lang="f7-item2">Environmental correlation</li>
+            <li data-lang="f7-item3">Movement forecasting</li>
+          </ul>
+        </div>
+
+        <!-- Feature 8: Behavioral Intelligence -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f8-title">Behavioral Intelligence</h3>
+          <p data-lang="f8-desc">Machine learning models continuously improve detection accuracy by analyzing animal
+            behavior patterns and
+            adapting to new threats.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f8-item1">Continuous learning</li>
+            <li data-lang="f8-item2">Pattern adaptation</li>
+            <li data-lang="f8-item3">Threat evolution tracking</li>
+          </ul>
+        </div>
+
+        <!-- Feature 9: Conservation Support -->
+        <div class="card card-accent-top">
+          <h3 data-lang="f9-title">Conservation Management</h3>
+          <p data-lang="f9-desc">Comprehensive data collection supports wildlife management strategies and conservation
+            efforts through
+            detailed movement and behavior insights.</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md);">
+            <li data-lang="f9-item1">Population tracking</li>
+            <li data-lang="f9-item2">Habitat analysis</li>
+            <li data-lang="f9-item3">Conservation insights</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about" style="background: linear-gradient(135deg, #f5f7f5, #e8f5e9);">
+    <div class="container">
+      <div class="grid grid-2" style="align-items: center;">
+        <div>
+          <h2 data-lang="about-title">About the Project</h2>
+          <p style="font-size: 1.125rem;" data-lang="about-desc1">Human-wildlife conflict is an increasing challenge in
+            forest-border regions,
+            resulting in risks to human life, agricultural loss, and threats to wildlife conservation.</p>
+          <p data-lang="about-desc2">Our AI-driven smart fencing and monitoring system provides a comprehensive solution
+            through:</p>
+          <ul style="color: var(--color-text-secondary); margin-left: var(--space-md); margin-bottom: var(--space-lg);">
+            <li><strong data-lang="about-item1">Real-time monitoring</strong> <span data-lang="about-item1-desc">of
+                wildlife movement and human intrusion</span></li>
+            <li><strong data-lang="about-item2">Behavioral intelligence</strong> <span data-lang="about-item2-desc">for
+                accurate species identification</span></li>
+            <li><strong data-lang="about-item3">Predictive analytics</strong> <span data-lang="about-item3-desc">to
+                forecast animal movement patterns</span></li>
+            <li><strong data-lang="about-item4">Community engagement</strong> <span data-lang="about-item4-desc">through
+                verified reporting systems</span></li>
+            <li><strong data-lang="about-item5">Emergency response</strong> <span data-lang="about-item5-desc">with SOS
+                alerts and escape guidance</span></li>
+          </ul>
+          <p style="color: var(--color-text-secondary);" data-lang="about-desc3">Through the integration of cutting-edge
+            technology and
+            conservation science, we aim to create a harmonious coexistence between humans and wildlife while supporting
+            effective wildlife management strategies.</p>
+        </div>
+        <div class="card"
+          style="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); color: white; padding: var(--space-xl);">
+          <h3 style="color: white; margin-bottom: var(--space-lg);" data-lang="cap-title">System Capabilities</h3>
+          <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-secondary-light);">15+</div>
+              <div style="opacity: 0.9;" data-lang="cap-species">Species Identified</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-secondary-light);">50km²</div>
+              <div style="opacity: 0.9;" data-lang="cap-area">Coverage Area</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-secondary-light);">&lt;2s</div>
+              <div style="opacity: 0.9;" data-lang="cap-response">Alert Response Time</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-secondary-light);">500+</div>
+              <div style="opacity: 0.9;" data-lang="cap-users">Active Users</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center mb-5" data-lang="how-title">How It Works</h2>
+      <div class="grid grid-4">
+        <div class="card text-center card-accent-top">
+          <div
+            style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">01
+          </div>
+          <h4 data-lang="how-step1-title">Detection</h4>
+          <p data-lang="how-step1-desc">AI sensors detect movement within monitored boundaries using thermal, visual,
+            and acoustic analysis.</p>
+        </div>
+        <div class="card text-center card-accent-top">
+          <div
+            style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">02
+          </div>
+          <h4 data-lang="how-step2-title">Identification</h4>
+          <p data-lang="how-step2-desc">Behavioral patterns and physical characteristics are analyzed to identify
+            species and assess threat level.
+          </p>
+        </div>
+        <div class="card text-center card-accent-top">
+          <div
+            style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">03
+          </div>
+          <h4 data-lang="how-step3-title">Response</h4>
+          <p data-lang="how-step3-desc">Species-specific alerts are activated with appropriate alarm intensity and
+            notification protocols.</p>
+        </div>
+        <div class="card text-center card-accent-top">
+          <div
+            style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">04
+          </div>
+          <h4 data-lang="how-step4-title">Prevention</h4>
+          <p data-lang="how-step4-desc">Intelligent fencing and authority notifications prevent human-wildlife conflict
+            before it escalates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section"
+    style="background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)); color: white; text-align: center;">
+    <div class="container">
+      <h2 style="color: white; margin-bottom: var(--space-md);">Join the Conservation Effort</h2>
+      <p
+        style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); margin-bottom: var(--space-xl); max-width: 700px; margin-left: auto; margin-right: auto;">
+        Help us protect both human communities and wildlife through technology-driven conservation.
+      </p>
+      <div class="flex flex-center" style="gap: var(--space-md); flex-wrap: wrap;">
+        <a href="user-portal.html" class="btn btn-secondary btn-lg">
+          Report Wildlife Sighting
+        </a>
+        <a href="login.html" class="btn btn-outline btn-lg" style="color: white; border-color: white;">
+          Forest Officer Login
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer
+    style="background: var(--color-surface-dark); color: rgba(255, 255, 255, 0.8); padding: var(--space-xl) 0; text-align: center;">
+    <div class="container">
+      <div class="navbar-brand"
+        style="justify-content: center; margin-bottom: var(--space-md); color: var(--color-secondary-light);">
+        <img src="logo.jpg" alt="WildAI Logo" style="height: 40px; border-radius: 8px; margin-right: 12px;">
+        <span data-lang="brand">WildAI</span>
+      </div>
+      <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: var(--space-sm);">
+        AI-Driven Wildlife Monitoring & Smart Fencing System
+      </p>
+      <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.875rem;">
+        © 2026 WildAI. <span data-lang="footer-tagline">Protecting lives, preserving wildlife.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

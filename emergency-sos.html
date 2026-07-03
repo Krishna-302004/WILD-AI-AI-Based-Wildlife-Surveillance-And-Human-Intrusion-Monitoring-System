@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Emergency SOS and Wildlife Sighting Report - Wildlife Guardian">
+    <title>Emergency SOS - Wildlife Guardian</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <img src="logo.jpg" alt="WildAI Logo"
+                    style="height: 48px; border-radius: 12px; border: 2px solid var(--color-secondary-light);">
+                <span data-lang="brand">WildAI</span>
+            </a>
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="index.html" data-lang="nav-home">Home</a></li>
+                <li><a href="index.html#features" data-lang="nav-features">Features</a></li>
+                <li><a href="index.html#about" data-lang="nav-about">About</a></li>
+                <li><a href="user-portal.html" data-lang="nav-portal">User Portal</a></li>
+                <li><a href="login.html" class="btn btn-primary" data-lang="nav-admin">Admin Login</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="en" id="langEn">English</button>
+                    <button class="lang-btn" data-lang-switch="ml" id="langMl">മലയാളം</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Emergency Alert Banner -->
+    <div class="emergency-banner">
+        <div class="container">
+            <div class="emergency-banner-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span data-lang="emergency-banner">Emergency Response & Wildlife Reporting System</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="section" style="padding-top: 120px; background: linear-gradient(135deg, #f5f7f5, #e8f5e9);">
+        <div class="container">
+            <div class="emergency-grid">
+
+                <!-- SOS Activation Panel -->
+                <div class="emergency-card sos-card">
+                    <div class="card-header"
+                        style="background: linear-gradient(135deg, #d32f2f, #c62828); color: white; padding: var(--space-lg); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: calc(var(--space-lg) * -1) calc(var(--space-lg) * -1) var(--space-lg);">
+                        <div style="display: flex; align-items: center; gap: var(--space-md);">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                            <div>
+                                <h2 style="color: white; margin: 0; font-size: 1.75rem;" data-lang="sos-title">Emergency
+                                    SOS</h2>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 0.875rem;"
+                                    data-lang="sos-subtitle">Immediate help for wildlife encounters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sosStatus" class="sos-inactive">
+                        <div class="sos-icon-container">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                <line x1="12" y1="9" x2="12" y2="13" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </div>
+
+                        <h3 data-lang="sos-ready">Ready for Emergency</h3>
+                        <p data-lang="sos-ready-desc">Press the button below if you encounter dangerous wildlife or need
+                            immediate assistance.</p>
+
+                        <button class="btn btn-danger btn-lg w-full" id="activateSosBtn"
+                            style="margin-top: var(--space-lg);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="margin-right: var(--space-xs);">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                            <span data-lang="activate-sos">ACTIVATE EMERGENCY SOS</span>
+                        </button>
+
+                        <div
+                            style="margin-top: var(--space-lg); padding: var(--space-md); background: #fff3e0; border-radius: var(--radius-md); border-left: 4px solid #f57c00;">
+                            <p style="margin: 0; font-size: 0.875rem; color: #e65100;">
+                                <strong data-lang="sos-warning-title">When to use SOS:</strong><br>
+                                <span data-lang="sos-warning-desc">Dangerous wildlife encounter, injury, or immediate
+                                    threat to life. False alarms may result in penalties.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="sosActive" class="sos-active hidden">
+                        <div class="sos-icon-container active">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" class="pulse-animation">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                        </div>
+
+                        <h3 style="color: #d32f2f;" data-lang="sos-activated">EMERGENCY SOS ACTIVATED</h3>
+
+                        <div class="alert alert-danger-high">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="font-weight: 800; color: var(--color-danger-high);">LOC</div>
+                                <div>
+                                    <strong data-lang="location-shared">Your location has been shared</strong><br>
+                                    <span id="sosLocation" data-lang="acquiring-gps">Acquiring GPS coordinates...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-safe">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="font-weight: 800; color: var(--color-safe);">OK</div>
+                                <div>
+                                    <strong data-lang="authorities-notified">Forest authorities notified</strong><br>
+                                    <span data-lang="help-coming">Help is on the way. Stay calm and follow safety
+                                        guidelines.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="safe-zone-card">
+                            <h4>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" style="vertical-align: middle; margin-right: var(--space-xs);">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <span data-lang="nearest-safe-zone">Nearest Safe Zone</span>
+                            </h4>
+                            <p>
+                                <strong data-lang="direction">Direction:</strong> <span
+                                    id="safeZoneDirection">Northeast</span><br>
+                                <strong data-lang="distance">Distance:</strong> <span id="safeZoneDistance">450
+                                    meters</span>
+                            </p>
+                            <div class="direction-arrow">↑</div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary);"
+                                data-lang="follow-direction">Follow this direction to reach safety</p>
+                        </div>
+
+                        <button class="btn btn-outline w-full" id="deactivateSosBtn">
+                            <span data-lang="deactivate-sos">Deactivate SOS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wildlife Sighting Report Panel -->
+                <div class="emergency-card report-card">
+                    <div class="card-header"
+                        style="background: linear-gradient(135deg, #2d5016, #3d6b1f); color: white; padding: var(--space-lg); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: calc(var(--space-lg) * -1) calc(var(--space-lg) * -1) var(--space-lg);">
+                        <div style="display: flex; align-items: center; gap: var(--space-md);">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                            <div>
+                                <h2 style="color: white; margin: 0; font-size: 1.75rem;" data-lang="report-title">Report
+                                    Wildlife Sighting</h2>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 0.875rem;"
+                                    data-lang="report-subtitle">Help us track and protect wildlife</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="wildlifeSightingForm">
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <span data-lang="location-label">Location</span>
+                            </label>
+                            <input type="text" class="form-input" id="reportLocation"
+                                data-lang-placeholder="location-placeholder" placeholder="Enter location or use GPS"
+                                required>
+                            <button type="button" class="btn btn-outline mt-2" id="getLocationBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" style="margin-right: 4px;">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                                </svg>
+                                <span data-lang="use-gps">Use My Current Location</span>
+                            </button>
+                        </div>
+
+                        <!-- Date and Time -->
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                        <line x1="16" y1="2" x2="16" y2="6" />
+                                        <line x1="8" y1="2" x2="8" y2="6" />
+                                        <line x1="3" y1="10" x2="21" y2="10" />
+                                    </svg>
+                                    <span data-lang="date-label">Date</span>
+                                </label>
+                                <input type="date" class="form-input" id="sightingDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    <span data-lang="time-label">Time</span>
+                                </label>
+                                <input type="time" class="form-input" id="sightingTime" required>
+                            </div>
+                        </div>
+
+                        <!-- Species -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="species-label">Species (if known)</label>
+                            <select class="form-select" id="species">
+                                <option value="" data-lang="select-species">Select species...</option>
+                                <option value="tiger" data-lang="species-tiger">Tiger / കടുവ</option>
+                                <option value="leopard" data-lang="species-leopard">Leopard / പുലി</option>
+                                <option value="elephant" data-lang="species-elephant">Elephant / ആന</option>
+                                <option value="wild-boar" data-lang="species-boar">Wild Boar / കാട്ടുപന്നി</option>
+                                <option value="deer" data-lang="species-deer">Deer / മാൻ</option>
+                                <option value="bear" data-lang="species-bear">Bear / കരടി</option>
+                                <option value="monkey" data-lang="species-monkey">Monkey / കുരങ്ങ്</option>
+                                <option value="snake" data-lang="species-snake">Snake / പാമ്പ്</option>
+                                <option value="other" data-lang="species-other">Other</option>
+                                <option value="unknown" data-lang="species-unknown">Unknown</option>
+                            </select>
+                        </div>
+
+                        <!-- Image Upload with Drag & Drop -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <polyline points="21 15 16 10 5 21" />
+                                </svg>
+                                <span data-lang="upload-photo">Upload Photo (Required for verification)</span>
+                            </label>
+                            <div class="file-upload-zone" id="fileUploadZone">
+                                <input type="file" class="file-upload-input" id="imageUpload" accept="image/*" required>
+                                <label for="imageUpload" class="file-upload-label" id="fileUploadLabel">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                    <div>
+                                        <div style="font-weight: 600; margin-bottom: 0.25rem;" data-lang="drag-drop">
+                                            Drag & drop image here or click to browse</div>
+                                        <div style="font-size: 0.875rem; color: var(--color-text-secondary);"
+                                            data-lang="file-types">PNG, JPG up to 10MB</div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div id="imagePreview" class="file-preview hidden"></div>
+                            <div id="verificationStatus" class="mt-2"></div>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="notes-label">Additional Notes</label>
+                            <textarea class="form-textarea" id="notes" data-lang-placeholder="notes-placeholder"
+                                placeholder="Describe what you observed..."></textarea>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="form-group">
+                            <label class="form-label" data-lang="contact-label">Your Contact Number (Optional)</label>
+                            <input type="tel" class="form-input" id="contact" placeholder="+91 XXXXX XXXXX">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-full btn-lg">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="margin-right: var(--space-xs);">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                            <span data-lang="submit-report">Submit Report</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--color-surface-dark); color: rgba(255, 255, 255, 0.8); padding: var(--space-xl) 0; text-align: center;">
+        <div class="container">
+            <div class="navbar-brand"
+                style="justify-content: center; margin-bottom: var(--space-md); color: var(--color-secondary-light);">
+                <img src="logo.jpg" alt="WildAI Logo" style="height: 40px; border-radius: 8px; margin-right: 12px;">
+                <span data-lang="brand">WildAI</span>
+            </div>
+            <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: var(--space-sm);">
+                <span data-lang="emergency-hotline">Emergency Hotline:</span> <strong>1800-XXX-XXXX</strong> (24/7)
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.875rem;">
+                © 2026 WildAI. <span data-lang="footer-tagline">Protecting lives, preserving wildlife.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

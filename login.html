@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin login for wildlife monitoring system">
+    <title>Admin Login - WildAI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <img src="logo.jpg" alt="WildAI Logo"
+                    style="height: 48px; border-radius: 12px; border: 2px solid var(--color-secondary-light);">
+                <span data-lang="brand">WildAI</span>
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="index.html" data-lang="nav-home">Home</a></li>
+                <li><a href="user-portal.html" data-lang="nav-portal">User Portal</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn" data-lang-switch="en" id="langEn">English</button>
+                    <button class="lang-btn" data-lang-switch="ml" id="langMl">മലയാളം</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="hero"
+        style="min-height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://th-i.thgim.com/public/incoming/o8ko7w/article70068731.ece/alternates/FREE_1200/6678_21_7_2025_16_22_4_3_TUSKER_1.JPG'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="fade-in" style="max-width: 500px; margin: 0 auto;">
+                <div class="card" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                    <div style="text-align: center; margin-bottom: var(--space-xl);">
+                        <div
+                            style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-md);">
+                            ADMIN</div>
+                        <h2 style="color: var(--color-primary); margin-bottom: var(--space-xs);"
+                            data-lang="admin-title">Forest Officer Login
+                        </h2>
+                        <p style="color: var(--color-text-secondary);" data-lang="admin-subtitle">Access the admin
+                            dashboard</p>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label" data-lang="officer-id-label">Officer ID</label>
+                            <input type="text" class="form-input" id="officerId"
+                                data-lang-placeholder="officer-id-placeholder" placeholder="Enter your officer ID"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-lang="password-label">Password</label>
+                            <input type="password" class="form-input" id="password"
+                                data-lang-placeholder="password-placeholder" placeholder="Enter your password" required>
+                        </div>
+
+                        <div class="form-group" style="display: flex; align-items: center; gap: var(--space-xs);">
+                            <input type="checkbox" id="rememberMe" style="width: auto;">
+                            <label for="rememberMe"
+                                style="margin: 0; font-weight: 400; color: var(--color-text-secondary);"
+                                data-lang="remember-me">Remember
+                                me</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full btn-lg">
+                            <span data-lang="login-btn">Login to Dashboard</span>
+                        </button>
+                    </form>
+
+                    <div
+                        style="margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); text-align: center;">
+                        <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+                            <span data-lang="demo-creds">Demo credentials:</span> <br>
+                            <strong>ID:</strong> officer123 | <strong>Password:</strong> demo123
+                        </p>
+                    </div>
+
+                    <div style="margin-top: var(--space-md); text-align: center;">
+                        <a href="index.html" style="color: var(--color-secondary); font-size: 0.875rem;"
+                            data-lang="back-home">
+                            Back to Home
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-lg); text-align: center;">
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;" data-lang="assist-text">
+                        For assistance, contact: <strong>support@wildai.org</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
