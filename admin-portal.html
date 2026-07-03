@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin dashboard for wildlife monitoring and management">
+    <title>Admin Portal - Wildlife Guardian</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: var(--color-bg-dark);
+            color: var(--color-text-light);
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--color-surface-dark), #0f1f0f);
+            border-bottom: 2px solid var(--color-primary);
+            padding: var(--space-lg) 0;
+            margin-bottom: var(--space-xl);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card-admin {
+            background: linear-gradient(135deg, var(--color-surface-dark), #1a2f1a);
+            border: 1px solid var(--color-border-dark);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: all var(--transition-base);
+        }
+
+        .stat-card-admin:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-secondary);
+            box-shadow: 0 8px 24px rgba(124, 179, 66, 0.2);
+        }
+
+        .detection-feed {
+            background: var(--color-surface-dark);
+            border: 1px solid var(--color-border-dark);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .detection-item {
+            background: #0f1f0f;
+            border-left: 4px solid var(--color-secondary);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+        }
+
+        .detection-item:hover {
+            background: #1a2f1a;
+            transform: translateX(5px);
+        }
+
+        .detection-item.high-danger {
+            border-left-color: var(--color-danger-high);
+        }
+
+        .detection-item.medium-danger {
+            border-left-color: var(--color-danger-medium);
+        }
+
+        .chart-container {
+            background: var(--color-surface-dark);
+            border: 1px solid var(--color-border-dark);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" style="background: rgba(26, 31, 26, 0.95);">
+        <div class="container">
+            <a href="index.html" class="navbar-brand" style="color: var(--color-secondary-light);">
+                <img src="logo.jpg" alt="WildAI Logo"
+                    style="height: 48px; border-radius: 12px; border: 2px solid var(--color-secondary-light);">
+                <span data-lang="brand">WildAI</span> - <span data-lang="nav-admin">Admin</span>
+            </a>
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="admin-portal.html" style="color: var(--color-text-light);"
+                        data-lang="admin-dashboard">Dashboard</a></li>
+                <li><a href="#monitoring" style="color: var(--color-text-light);"
+                        data-lang="admin-monitoring">Monitoring</a></li>
+                <li><a href="#reports" style="color: var(--color-text-light);" data-lang="admin-reports">Reports</a>
+                </li>
+                <li><a href="#analytics" style="color: var(--color-text-light);"
+                        data-lang="admin-analytics">Analytics</a></li>
+                <li><a href="index.html" class="btn btn-outline"
+                        style="color: var(--color-secondary); border-color: var(--color-secondary);"
+                        data-lang="admin-logout">Logout</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn" data-lang-switch="en" id="langEn">English</button>
+                    <button class="lang-btn" data-lang-switch="ml" id="langMl">മലയാളം</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admin Header -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="flex-between" style="flex-wrap: wrap; gap: var(--space-md);">
+                <div>
+                    <h1 style="color: var(--color-secondary-light); font-size: 2rem; margin-bottom: var(--space-xs);"
+                        data-lang="admin-panel-title">
+                        Forest Officer Dashboard</h1>
+                    <p style="color: rgba(255, 255, 255, 0.7);" data-lang="admin-panel-subtitle">Real-time wildlife
+                        monitoring and management system</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Last Updated</div>
+                    <div style="color: var(--color-secondary-light); font-weight: 600;" id="lastUpdated">Just now</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Stats -->
+    <section class="section">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="stat-card-admin">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md);">
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-xs);">
+                                Active Detections</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-secondary-light);">12
+                            </div>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-secondary);">LIVE</div>
+                    </div>
+                    <div style="color: var(--color-safe); font-size: 0.875rem;">
+                        ↑ 3 new in last hour
+                    </div>
+                </div>
+
+                <div class="stat-card-admin">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md);">
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-xs);">
+                                High Risk Alerts</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-danger-high);">3</div>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-danger-high);">HIGH</div>
+                    </div>
+                    <div style="color: var(--color-danger-medium); font-size: 0.875rem;">
+                        Requires immediate attention
+                    </div>
+                </div>
+
+                <div class="stat-card-admin">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md);">
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-xs);">
+                                Pending Reports</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-accent-light);">8</div>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-accent);">DATA</div>
+                    </div>
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                        Awaiting validation
+                    </div>
+                </div>
+
+                <div class="stat-card-admin">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md);">
+                        <div>
+                            <div
+                                style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-xs);">
+                                System Status</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-safe);">OPERATIONAL
+                            </div>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-safe);">OK</div>
+                    </div>
+                    <div style="color: var(--color-safe); font-size: 0.875rem;">
+                        All sensors online
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-time Monitoring -->
+    <section class="section" id="monitoring">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                <h2 style="color: var(--color-secondary-light); margin: 0;">Real-Time Detection Feed</h2>
+                <div style="background: rgba(45, 80, 22, 0.2); border: 1px solid var(--color-primary); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); display: flex; align-items: center; gap: var(--space-md);">
+                    <!-- Automated Control Toggles -->
+                    <div class="control-group" style="display: flex; gap: var(--space-lg); padding-right: var(--space-md); border-right: 1px solid rgba(255,255,255,0.1); margin-right: var(--space-sm);">
+                        <div class="switch-container" data-tooltip="Auto-send SMS to villagers">
+                            <span class="switch-label">Auto-SMS</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggleAutoSms" onchange="handleAutoToggle('sms')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-container" data-tooltip="Auto-play deterrent sound">
+                            <span class="switch-label">Auto-Sound</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggleAutoSound" onchange="handleAutoToggle('sound')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="btn-start-monitoring" onclick="startLiveMonitoring()">Start Live Monitoring</button>
+                    <button class="btn btn-outline" style="color: var(--color-accent); border-color: var(--color-accent);" onclick="simulateDetection()">Simulate Detection</button>
+                    <button class="btn btn-outline" id="btn-stop-monitoring" style="display: none; color: var(--color-danger-high); border-color: var(--color-danger-high);" onclick="stopDetectionStream()">Stop Monitoring</button>
+                </div>
+            </div>
+
+            <!-- Live Stream Preview -->
+            <div id="liveStreamContainer" style="display: none; width: 100%; text-align: center; margin-bottom: var(--space-xl); background: var(--color-surface-dark); padding: var(--space-md); border-radius: var(--radius-lg); border: 1px solid var(--color-border-dark);">
+                <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">Live Camera Feed</h3>
+                <img id="video-stream" src="" alt="Stream Output" style="max-width: 100%; border-radius: var(--radius-sm); border: 2px solid var(--color-secondary);">
+                <div style="margin-top: var(--space-md);">
+                    <button class="btn btn-outline" style="color: var(--color-danger-high); border-color: var(--color-danger-high);" onclick="stopDetectionStream()">Stop Stream</button>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="detection-feed">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md); font-size: 1.25rem;">
+                        Wildlife Detections</h3>
+                    <div id="wildlifeDetections">
+                        <!-- Detections will be dynamically inserted -->
+                    </div>
+                </div>
+
+                <div class="detection-feed">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md); font-size: 1.25rem;">
+                        Intrusion Alerts</h3>
+                    <div id="intrusionAlerts">
+                        <!-- Alerts will be dynamically inserted -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IOT DEVICE MANAGEMENT & ADMIN CONTROLS -->
+    <section class="section" id="iot-management"
+        style="background: rgba(45, 80, 22, 0.2); border-top: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary);">
+        <div class="container">
+            <h2 style="color: var(--color-secondary-light); margin-bottom: var(--space-lg);">IoT Device Management
+            </h2>
+
+            <div class="grid grid-2">
+                <!-- Device Status Panel -->
+                <div class="card"
+                    style="background: var(--color-surface-dark); border: 1px solid var(--color-border-dark);">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">Active IoT Sensors
+                    </h3>
+                    <div id="iotDeviceList" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        <!-- Devices will be dynamically inserted -->
+                    </div>
+                    <button class="btn btn-primary w-full" style="margin-top: var(--space-md);"
+                        onclick="refreshDevices()">
+                        Refresh Device Status
+                    </button>
+                </div>
+
+                <!-- Alert Configuration -->
+                <div class="card"
+                    style="background: var(--color-surface-dark); border: 1px solid var(--color-border-dark);">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">Alert Configuration
+                    </h3>
+
+                    <div class="form-group">
+                        <label class="form-label" style="color: rgba(255, 255, 255, 0.8);">SMS Recipients</label>
+                        <textarea class="form-textarea" id="smsRecipients" rows="3"
+                            placeholder="+91 98765 43210&#10;+91 98765 43211">+91 98765 43210
++91 98765 43211
++91 98765 43212</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="color: rgba(255, 255, 255, 0.8);">Alert Cooldown
+                            (seconds)</label>
+                        <input type="number" class="form-input" id="alertCooldown" value="10" min="5" max="300">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="color: rgba(255, 255, 255, 0.8);">Auto-Response Mode</label>
+                        <select class="form-select" id="autoResponseMode">
+                            <option value="full">Full Auto (Sound + SMS)</option>
+                            <option value="sms-only">SMS Only</option>
+                            <option value="sound-only">Sound Only</option>
+                            <option value="manual">Manual Approval</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary w-full" onclick="saveAlertConfig()">
+                        Save Configuration
+                    </button>
+                </div>
+            </div>
+
+            <!-- SMS Gateway Configuration -->
+            <div class="card" style="background: var(--color-surface-dark); border: 2px solid var(--color-primary); margin-top: var(--space-lg);">
+                <div style="display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+                    <div style="font-size: 2rem;">🛡️</div>
+                    <div>
+                        <h3 style="color: var(--color-secondary-light); margin: 0;">SMS Gateway Settings</h3>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">Configure your Fast2SMS credentials for automated alerts</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Fast2SMS API Key</label>
+                        <input type="password" class="form-input" id="setting_fast2sms_api_key" placeholder="Enter your Fast2SMS API Key">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Recipient Number (India)</label>
+                        <input type="text" class="form-input" id="setting_alert_to_number" placeholder="+91 9495848807">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fast2SMS Route</label>
+                        <select class="form-select" id="setting_fast2sms_route">
+                            <option value="v3" selected>v3 (Direct - Recommended)</option>
+                            <option value="q">Quick Transactional (q)</option>
+                            <option value="dlt">DLT Route</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin: var(--space-md) 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-md);">
+                    <h4 style="color: var(--color-text-light); margin-bottom: var(--space-sm);">Secondary / Fallback (Twilio)</h4>
+                    <div class="grid grid-3">
+                        <div class="form-group">
+                            <label class="form-label">Account SID</label>
+                            <input type="text" class="form-input" id="setting_twilio_account_sid" placeholder="AC...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Auth Token</label>
+                            <input type="password" class="form-input" id="setting_twilio_auth_token" placeholder="Token">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">From Number</label>
+                            <input type="text" class="form-input" id="setting_twilio_from_number" placeholder="+1234567890">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: var(--space-md); margin-top: var(--space-md);">
+                    <button class="btn btn-primary" onclick="saveSystemSettings()" id="btnSaveSettings">
+                        Save SMS Settings
+                    </button>
+                    <button class="btn btn-outline" onclick="testAlertSystem()">
+                        Send Test SMS
+                    </button>
+                </div>
+                
+                <div style="margin-top: var(--space-md); padding: var(--space-md); background: rgba(124, 179, 66, 0.1); border-radius: var(--radius-sm); font-size: 0.875rem; color: rgba(255,255,255,0.7);">
+                    <strong>💡 Pro Tip:</strong> Get your API key from <a href="https://www.fast2sms.com/" target="_blank" style="color: var(--color-secondary-light);">Fast2SMS.com</a>. Ensure your account has sufficient balance for sending SMS.
+                </div>
+            </div>
+
+            <!-- Data Export & System Tools -->
+            <div class="grid grid-3" style="margin-top: var(--space-lg);">
+                <div class="card"
+                    style="background: var(--color-surface-dark); border: 1px solid var(--color-border-dark); text-align: center;">
+                    <div
+                        style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">
+                        CSV</div>
+                    <h4 style="color: var(--color-text-light); margin-bottom: var(--space-sm);">Export Detection Data
+                    </h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-md);">
+                        Download CSV reports of all detections
+                    </p>
+                    <button class="btn btn-outline w-full" onclick="exportDetectionData()">
+                        Export CSV
+                    </button>
+                </div>
+
+                <div class="card"
+                    style="background: var(--color-surface-dark); border: 1px solid var(--color-border-dark); text-align: center;">
+                    <div
+                        style="font-size: 1.5rem; font-weight: 800; color: var(--color-accent); margin-bottom: var(--space-sm);">
+                        IMG</div>
+                    <h4 style="color: var(--color-text-light); margin-bottom: var(--space-sm);">Detection Archive</h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-md);">
+                        View saved detection images
+                    </p>
+                    <button class="btn btn-outline w-full" onclick="viewDetectionArchive()">
+                        View Archive
+                    </button>
+                </div>
+
+                <div class="card"
+                    style="background: var(--color-surface-dark); border: 1px solid var(--color-border-dark); text-align: center;">
+                    <div
+                        style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: var(--space-sm);">
+                        SMS</div>
+                    <h4 style="color: var(--color-text-light); margin-bottom: var(--space-sm);">Test Alert System</h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: var(--space-md);">
+                        Send test SMS to all recipients
+                    </p>
+                    <button class="btn btn-outline w-full" onclick="testAlertSystem()">
+                        Send Test Alert
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sighting Report Validation -->
+    <section class="section" id="reports" style="background: rgba(26, 31, 26, 0.5);">
+        <div class="container">
+            <h2 style="color: var(--color-secondary-light); margin-bottom: var(--space-lg);">Community Reports - Validation Queue</h2>
+
+            <div class="grid grid-3" id="reportValidation" style="margin-bottom: var(--space-xl);">
+                <!-- Pending reports will be dynamically inserted -->
+            </div>
+
+            <h3 style="color: var(--color-secondary-light); margin-bottom: var(--space-md);">Verified Report History</h3>
+            <div id="reportHistory" style="display: flex; flex-direction: column; gap: var(--space-md); max-height: 500px; overflow-y: auto; padding-right: 10px;">
+                <!-- Verified reports will move here -->
+                <div style="color:rgba(255,255,255,0.3); text-align:center; padding:var(--space-md); border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px;">
+                    Verified reports will appear here after approval.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics & Predictions -->
+    <section class="section" id="analytics">
+        <div class="container">
+            <h2 style="color: var(--color-secondary-light); margin-bottom: var(--space-lg);">Behavioral Analytics &
+                Predictions</h2>
+
+            <div class="grid grid-2">
+                <div class="chart-container">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">Species Detection Trends
+                        (Last 30 Days)</h3>
+                    <div id="speciesChart"
+                        style="height: 300px; display: flex; align-items: flex-end; justify-content: space-around; gap: var(--space-sm);">
+                        <!-- Chart bars will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">Detection Time
+                        Distribution</h3>
+                    <div id="timeChart"
+                        style="height: 300px; display: flex; align-items: flex-end; justify-content: space-around; gap: var(--space-xs);">
+                        <!-- Chart bars will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seasonal Analysis -->
+            <div class="chart-container" style="margin-top: var(--space-lg);">
+                <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">🌾 Seasonal Movement
+                    Predictions</h3>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md);">
+                    <div
+                        style="background: #0f1f0f; padding: var(--space-md); border-radius: var(--radius-md); border-left: 4px solid var(--color-danger-high);">
+                        <div style="font-weight: 600; margin-bottom: var(--space-xs); color: var(--color-text-light);">
+                            High Risk Period</div>
+                        <div
+                            style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: var(--space-sm);">
+                            Crop Harvest Season</div>
+                        <div style="color: var(--color-danger-high); font-weight: 600;">Next 2 weeks</div>
+                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-top: var(--space-sm);">
+                            Increased elephant and wild boar activity expected near agricultural areas
+                        </p>
+                    </div>
+
+                    <div
+                        style="background: #0f1f0f; padding: var(--space-md); border-radius: var(--radius-md); border-left: 4px solid var(--color-danger-medium);">
+                        <div style="font-weight: 600; margin-bottom: var(--space-xs); color: var(--color-text-light);">
+                            Water Scarcity Impact</div>
+                        <div
+                            style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: var(--space-sm);">
+                            Summer Migration</div>
+                        <div style="color: var(--color-danger-medium); font-weight: 600;">April - June</div>
+                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-top: var(--space-sm);">
+                            Wildlife moving closer to human settlements seeking water sources
+                        </p>
+                    </div>
+
+                    <div
+                        style="background: #0f1f0f; padding: var(--space-md); border-radius: var(--radius-md); border-left: 4px solid var(--color-safe);">
+                        <div style="font-weight: 600; margin-bottom: var(--space-xs); color: var(--color-text-light);">
+                            Low Activity Period</div>
+                        <div
+                            style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: var(--space-sm);">
+                            Monsoon Season</div>
+                        <div style="color: var(--color-safe); font-weight: 600;">July - September</div>
+                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-top: var(--space-sm);">
+                            Reduced conflict incidents due to abundant natural resources
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environmental Factors -->
+            <div class="chart-container" style="margin-top: var(--space-lg);">
+                <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md);">🌡️ Environmental
+                    Correlation Analysis</h3>
+                <div class="grid grid-4">
+                    <div
+                        style="text-align: center; padding: var(--space-md); background: #0f1f0f; border-radius: var(--radius-md);">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-xs);">🌡️</div>
+                        <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Temperature</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-accent-light);">32°C</div>
+                        <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: var(--space-xs);">↑
+                            Activity increases</div>
+                    </div>
+
+                    <div
+                        style="text-align: center; padding: var(--space-md); background: #0f1f0f; border-radius: var(--radius-md);">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-xs);">💧</div>
+                        <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Humidity</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-secondary-light);">45%</div>
+                        <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: var(--space-xs);">
+                            Normal range</div>
+                    </div>
+
+                    <div
+                        style="text-align: center; padding: var(--space-md); background: #0f1f0f; border-radius: var(--radius-md);">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-xs);">🌙</div>
+                        <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Moon Phase</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-light);">Waxing</div>
+                        <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: var(--space-xs);">
+                            Nocturnal activity ↑</div>
+                    </div>
+
+                    <div
+                        style="text-align: center; padding: var(--space-md); background: #0f1f0f; border-radius: var(--radius-md);">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-xs);">🌾</div>
+                        <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Crop Status</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-danger-medium);">Harvest
+                        </div>
+                        <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: var(--space-xs);">
+                            High risk period</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Configuration -->
+    <section class="section" style="background: rgba(26, 31, 26, 0.5);">
+        <div class="container">
+            <h2 style="color: var(--color-secondary-light); margin-bottom: var(--space-lg);">System Configuration
+            </h2>
+
+            <div class="grid grid-2">
+                <div class="chart-container">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md); font-size: 1.25rem;">
+                        Alert Thresholds</h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span style="color: rgba(255, 255, 255, 0.7);">High Danger (Tiger, Leopard)</span>
+                                <span style="color: var(--color-danger-high); font-weight: 600;">Immediate</span>
+                            </div>
+                            <div style="background: #0f1f0f; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: var(--color-danger-high); width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span style="color: rgba(255, 255, 255, 0.7);">Medium Danger (Elephant, Bear)</span>
+                                <span style="color: var(--color-danger-medium); font-weight: 600;">5 min delay</span>
+                            </div>
+                            <div style="background: #0f1f0f; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: var(--color-danger-medium); width: 75%; height: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span style="color: rgba(255, 255, 255, 0.7);">Low Risk (Wild Boar, Deer)</span>
+                                <span style="color: var(--color-danger-low); font-weight: 600;">15 min delay</span>
+                            </div>
+                            <div style="background: #0f1f0f; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: var(--color-danger-low); width: 50%; height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="color: var(--color-text-light); margin-bottom: var(--space-md); font-size: 1.25rem;">
+                        Sensor Network Status</h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        <div
+                            style="display: flex; justify-content: space-between; padding: var(--space-sm); background: #0f1f0f; border-radius: var(--radius-sm);">
+                            <span style="color: rgba(255, 255, 255, 0.7);">📹 Visual Cameras</span>
+                            <span class="badge badge-success">24/24 Online</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding: var(--space-sm); background: #0f1f0f; border-radius: var(--radius-sm);">
+                            <span style="color: rgba(255, 255, 255, 0.7);">🌡️ Thermal Sensors</span>
+                            <span class="badge badge-success">18/18 Online</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding: var(--space-sm); background: #0f1f0f; border-radius: var(--radius-sm);">
+                            <span style="color: rgba(255, 255, 255, 0.7);">🎤 Acoustic Monitors</span>
+                            <span class="badge badge-success">12/12 Online</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding: var(--space-sm); background: #0f1f0f; border-radius: var(--radius-sm);">
+                            <span style="color: rgba(255, 255, 255, 0.7);">📡 Motion Detectors</span>
+                            <span class="badge badge-warning">29/30 Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--color-surface-dark); color: rgba(255, 255, 255, 0.8); padding: var(--space-xl) 0; text-align: center; border-top: 1px solid var(--color-border-dark);">
+        <div class="container">
+            <p style="color: rgba(255, 255, 255, 0.6);">
+                <span data-lang="brand">WildAI</span> Admin Portal - Forest Department
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.875rem; margin-top: var(--space-xs);">
+                © 2026 <span data-lang="brand">WildAI</span>. Secure monitoring system.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========================================================= -->
+    <!-- POPUP 1: SMS Alert Popup                                   -->
+    <!-- ========================================================= -->
+    <div id="smsAlertModal" class="modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #1a0a0a, #2d1010); border: 2px solid #ff4444; border-radius: 16px; padding: 32px; max-width: 480px; width: 90%; box-shadow: 0 0 40px rgba(255,68,68,0.4); animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 3rem; margin-bottom: 8px;">📱</div>
+                <h2 style="color: #ff4444; margin: 0; font-size: 1.5rem; letter-spacing: 1px;">🚨 WILDLIFE DETECTED!</h2>
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px;">Wildlife Intrusion Alert System</p>
+            </div>
+            <!-- Detection Preview -->
+            <div style="background: rgba(0,0,0,0.4); border-radius: 10px; padding: 12px; margin-bottom: 16px; border: 1px solid rgba(255,68,68,0.3);">
+                <img id="smsModalImage" src="" alt="Detection" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px; display: block;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <div>
+                        <div id="smsModalSpecies" style="color: #ff8888; font-weight: 700; font-size: 1.2rem;">UNKNOWN</div>
+                        <div id="smsModalConfidence" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Confidence: 0%</div>
+                    </div>
+                    <div id="smsModalDangerBadge" style="background: #ff4444; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">HIGH RISK</div>
+                </div>
+            </div>
+            <!-- SMS Info -->
+            <div style="background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3); border-radius: 8px; padding: 12px; margin-bottom: 20px; text-align: center;">
+                <div style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Send SMS alert to:</div>
+                <div style="color: #ff8888; font-size: 1.1rem; font-weight: 700; margin-top: 4px;">+91 9495848807</div>
+            </div>
+            <!-- Buttons -->
+            <div style="display: flex; gap: 12px;">
+                <button onclick="dismissSmsModal()" style="flex: 1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">
+                    ✕ Dismiss
+                </button>
+                <button onclick="doSendSms()" id="btnSendSms" style="flex: 2; padding: 12px; background: linear-gradient(135deg, #cc0000, #ff4444); border: none; color: white; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; transition: all 0.2s; box-shadow: 0 4px 15px rgba(255,68,68,0.4);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                    📱 Allow SMS Alert
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- POPUP 2: Alert Sound Popup                                 -->
+    <!-- ========================================================= -->
+    <div id="soundAlertModal" class="modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1001; display: flex; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #1a1000, #2d2010); border: 2px solid #ff9900; border-radius: 16px; padding: 32px; max-width: 480px; width: 90%; box-shadow: 0 0 40px rgba(255,153,0,0.4); animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 3rem; margin-bottom: 8px;">🔊</div>
+                <h2 style="color: #ff9900; margin: 0; font-size: 1.5rem; letter-spacing: 1px;">DETERRENT SOUND</h2>
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px;">Species-specific audio deterrent</p>
+            </div>
+            <!-- Sound Details -->
+            <div style="background: rgba(255,153,0,0.1); border: 1px solid rgba(255,153,0,0.3); border-radius: 10px; padding: 16px; margin-bottom: 16px; text-align: center;">
+                <div id="soundSpeciesIcon" style="font-size: 2.5rem; margin-bottom: 8px;">🐾</div>
+                <div id="soundSpeciesName" style="color: #ffbb44; font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;">UNKNOWN</div>
+                <div id="soundDescription" style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">Deterrent sound will play for 10 seconds</div>
+            </div>
+            <!-- Sound Visualizer (animated when playing) -->
+            <div id="soundVisualizer" style="display: flex; align-items: center; justify-content: center; gap: 4px; height: 50px; margin-bottom: 16px; opacity: 0; transition: opacity 0.3s;">
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.1s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ffbb44; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.2s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.3s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ffdd00; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.4s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.5s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ffbb44; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.6s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.7s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ffdd00; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.8s;"></div>
+                <div class="sound-bar" style="width: 6px; background: #ff9900; border-radius: 3px; animation: soundAnim 0.5s ease-in-out infinite alternate; animation-delay: 0.9s;"></div>
+                <span id="soundCountdown" style="color: #ff9900; font-size: 1.5rem; font-weight: 700; margin-left: 12px;">10s</span>
+            </div>
+            <!-- Buttons -->
+            <div style="display: flex; gap: 12px;">
+                <button onclick="dismissSoundModal()" style="flex: 1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">
+                    ✕ Cancel
+                </button>
+                <button onclick="doPlaySound()" id="btnPlaySound" style="flex: 2; padding: 12px; background: linear-gradient(135deg, #cc6600, #ff9900); border: none; color: white; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; transition: all 0.2s; box-shadow: 0 4px 15px rgba(255,153,0,0.4);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                    🔊 Play Alert Sound
+                </button>
+            </div>
+            <!-- Stop sound button (hidden initially) -->
+            <button onclick="doStopSound()" id="btnStopSound" style="display:none; width: 100%; margin-top: 10px; padding: 10px; background: transparent; border: 1px solid rgba(255,68,68,0.5); color: #ff6666; border-radius: 8px; cursor: pointer; font-size: 0.875rem;">
+                ⏹ Stop Sound
+            </button>
+        </div>
+    </div>
+
+    <!-- Popup animation + sound bar styles -->
+    <style>
+        .modal.hidden { display: none !important; }
+        @keyframes popupSlideIn {
+            from { transform: scale(0.7) translateY(-30px); opacity: 0; }
+            to   { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        @keyframes soundAnim {
+            from { height: 8px; }
+            to   { height: 42px; }
+        }
+        .sound-bar { height: 8px; }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
